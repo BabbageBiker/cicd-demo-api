@@ -1,0 +1,41 @@
+# define 3 pipeline stages (run every push)
+stages:
+  - lint
+  - test
+  - build
+
+# shared enviro vars across all stages
+variables:
+  POSTGRES_DB: cicddemodb
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: password499
+  DATABASE_URL: postgresql://postgres:password499@localhost/cicddemodb
+
+# stage 1: check style and formatting with flake8
+lint:
+  stage: lint
+  image: python:3.12-slim
+  script:
+    - pip install flake8
+    - flake8 --max-line-length=140 *.py
+
+# stage 2: run pytest against PostgreSQL container
+test:
+  stage: test
+  image: python 3.12-slim
+  services:
+    - postgres:15
+  variables:
+    POSTGRES_HOST_AUTH_METHOD: trust
+  script:
+    - pip install -r requirements.txt
+    - pytest -v
+
+# stage 3: build docker image, verifies its package
+build:
+  stage: build
+  image: docker:24
+  services:
+    - docker:24-dind
+  script:
+    - docker build -t cicd-demo-api .
