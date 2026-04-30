@@ -8,5 +8,6 @@ DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:password499@loca
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
+
 class Base(DeclarativeBase):
     pass

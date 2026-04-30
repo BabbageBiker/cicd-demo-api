@@ -3,6 +3,7 @@ from sqlalchemy import Integer, String, Boolean, DateTime
 from datetime import datetime, timezone
 from database import Base
 
+
 class Item(Base):
     __tablename__ = "tasks"
 

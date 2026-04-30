@@ -7,6 +7,7 @@ import schemas
 
 # Base.metadata.create_all(bind=engine)
 
+
 # create db tables on start
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -20,6 +21,7 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+
 # open session and hand it to endpoint function, closes when fin
 def get_db():
     db = SessionLocal()
@@ -30,15 +32,18 @@ def get_db():
 
 # endpoints (CRUD)
 
+
 @app.get("/")
 def root():
     return {"status": "ok", "message": "CICD Demo API", "author": "Kyle Cornford"}
+
 
 # return all tasks from db
 @app.get("/tasks", response_model=list[schemas.TaskResponse])
 def get_tasks(db: Session = Depends(get_db)):
     tasks = db.query(models.Item).all()
     return tasks
+
 
 # create a new task, add it to db, save to db, and return the id and timestamp
 @app.post("/tasks", response_model=schemas.TaskResponse, status_code=201)
@@ -53,6 +58,7 @@ def create_task(task: schemas.TaskCreate, db: Session = Depends(get_db)):
     db.refresh(new_task)
     return new_task
 
+
 # retrieve and return a single task by id from db, return 404 if not found in db
 @app.get("/tasks/{task_id}", response_model=schemas.TaskResponse)
 def get_task(task_id: int, db: Session = Depends(get_db)):
@@ -60,6 +66,7 @@ def get_task(task_id: int, db: Session = Depends(get_db)):
     if task is None:
         raise HTTPException(status_code=404, detail="Task not found in db")
     return task
+
 
 # delete a task by id from db, return 404 if not found in db
 @app.delete("/tasks/{task_id}", status_code=204)

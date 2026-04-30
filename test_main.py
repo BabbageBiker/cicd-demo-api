@@ -15,12 +15,14 @@ engine = create_engine(
 )
 TestingSessionLocal = sessionmaker(bind=engine)
 
+
 # create tables in test db
 @pytest.fixture(autouse=True)
 def setup_database():
     Base.metadata.create_all(bind=engine)
     yield
     Base.metadata.drop_all(bind=engine)
+
 
 # overide app db session  with test db session
 def override_get_db():
@@ -30,10 +32,12 @@ def override_get_db():
     finally:
         db.close()
 
+
 app.dependency_overrides[get_db] = override_get_db
 client = TestClient(app)
 
 # Test functions
+
 
 # checks that root endpoint responds and contains correct status code
 def test_root():
@@ -41,12 +45,14 @@ def test_root():
     assert response.status_code == 200
     assert response.json()["status"] == "ok"
 
+
 # create test task, check that title and description are correct, completed = false, and contains correct status code
 def test_create_task():
     response = client.post("/tasks", json={"title": "TestTask", "description": "Test description of TestTask."})
     assert response.status_code == 201
     assert response.json()["title"] == "TestTask"
-    assert response.json()["completed"] == False
+    assert response.json()["completed"] is False
+
 
 # creates 2 test tasks, calls GET /tasks and verifies that 2 tasks come back
 def test_get_tasks():
@@ -56,6 +62,7 @@ def test_get_tasks():
     assert response.status_code == 200
     assert len(response.json()) == 2
 
+
 # create test task, verify that it can be fetched by ID correctly
 def test_get_task():
     created = client.post("/tasks", json={"title": "TaskToGet"})
@@ -64,10 +71,12 @@ def test_get_task():
     assert response.status_code == 200
     assert response.json()["title"] == "TaskToGet"
 
+
 # test GET with a task that does not exist
 def test_get_task_not_found():
     response = client.get("/tasks/10000")
     assert response.status_code == 404
+
 
 # create test task, verify that it can be deleted correctly using its id
 def test_delete_task():
@@ -75,6 +84,7 @@ def test_delete_task():
     task_id = created.json()["id"]
     response = client.delete(f"/tasks/{task_id}")
     assert response.status_code == 204
+
 
 # test DELETE with a task that does not exist
 def test_delete_task_not_found():

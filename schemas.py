@@ -4,10 +4,12 @@ from typing import Optional
 
 # Data validation
 
+
 # Schema/form for creating a new task
 class TaskCreate(BaseModel):
     title: str
     description: Optional[str] = None
+
 
 # Schema/form for API's structured output responses
 class TaskResponse(BaseModel):
