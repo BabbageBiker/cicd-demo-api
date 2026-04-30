@@ -18,5 +18,6 @@ class TaskResponse(BaseModel):
     created_at: datetime
 
     # configuration of SQLAlchemy model to match schema
-    class Config:
-        from_attributes = True
+    # class Config:
+    #     from_attributes = True
+    model_config = {"from_attributes": True}

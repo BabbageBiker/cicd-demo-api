@@ -1,15 +1,23 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import engine, SessionLocal, Base
+from contextlib import asynccontextmanager
 import models
 import schemas
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
+
+# create db tables on start
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    Base.metadata.create_all(bind=engine)
+    yield
 
 app = FastAPI(
     title="CICD Demo API",
     description="CICD Demo to-do list API built with FastAPI and PostgreSQL",
-    version="0.1.0"
+    version="0.1.0",
+    lifespan=lifespan
 )
 
 # open session and hand it to endpoint function, closes when fin
