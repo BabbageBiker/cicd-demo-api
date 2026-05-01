@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from database import Base
 
 
+# SQLAlchemy model to represent the tasks table in PostgreSQL
 class Item(Base):
     __tablename__ = "tasks"
 
@@ -11,4 +12,4 @@ class Item(Base):
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     completed: Mapped[bool] = mapped_column(Boolean, default=False)
     description: Mapped[str] = mapped_column(String(512), nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc)) # timestamp

@@ -9,5 +9,6 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 
 
+# base class for SQLALchemy models
 class Base(DeclarativeBase):
     pass

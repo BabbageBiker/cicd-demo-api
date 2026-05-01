@@ -15,23 +15,27 @@ Automated Gitlab CI/CD pipeline.
 - **flake8** - Linting code formatting/style
 
 ## Project Structure
+```
 cicd-demo-api/
-|-- main.py #
-|-- test_main.py #
-|-- database.py #
-|-- models.py #
-|-- schemas.py #
-|-- docker-compose.yml #
-|-- Dockerfile #
-|-- .gitlab-ci.yml #
-|-- requirements.txt #
+-- main.py
+-- test_main.py
+-- database.py
+-- models.py
+-- schemas.py
+-- docker-compose.yml
+-- Dockerfile
+-- .gitlab-ci.yml
+-- requirements.txt
+```
 
 ## API Endpoints
+```
 Method: GET, Endpoint: '/', Description: Confirms API is running
 Method: GET, Endpoint: '/tasks', Description: Returns all tasks stored in the DB
 Method: POST, Endpoint: '/tasks', Description: Creates and stores a new task in the DB
 Method: GET, Endpoint: '/tasks/{id}', Description: Returns a single task in the DB by ID, 404 if not found
 Method: DELETE, Endpoint: '/tasks/{id}', Description: Deletes a single task by ID, 404 if not found
+```
 
 ## Running Local
 
