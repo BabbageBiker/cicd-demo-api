@@ -12,4 +12,4 @@ class Item(Base):
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     completed: Mapped[bool] = mapped_column(Boolean, default=False)
     description: Mapped[str] = mapped_column(String(512), nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc)) # timestamp
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=lambda: datetime.now(timezone.utc))  # timestamp
