@@ -5,14 +5,13 @@ from contextlib import asynccontextmanager
 import models
 import schemas
 
-# Base.metadata.create_all(bind=engine)
-
 
 # create db tables on start
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
     yield
+
 
 app = FastAPI(
     title="CICD Demo API",
