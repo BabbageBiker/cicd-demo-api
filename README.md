@@ -1,9 +1,8 @@
 # CICD Demo API
 
 Personal project built for CS-499 Special Problems.
-Containerized REST API built using Python and FastAPI.
-Backed with a PostgreSQL database.
-Automated Gitlab CI/CD pipeline.
+Containerized REST API in Python and FastAPI over PostgreSQL.
+Three-stage GitLab CI/CD pipeline running automated linting and tests on every commit.
 
 ## Tech Stack (requirements.txt)
 - **Python / FastAPI** - Backend REST API
