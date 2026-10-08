@@ -61,7 +61,7 @@ pip install -r requirements.txt
 docker compose up --build
 ```
 
-Interactive API visible at 'https://localhost:8000/docs'
+Interactive API visible at 'http://localhost:8000/docs'
 
 ### Testing:
 ```bash
